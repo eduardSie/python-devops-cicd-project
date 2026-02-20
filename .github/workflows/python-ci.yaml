@@ -24,3 +24,7 @@ jobs:
       run: |
         black --check .
         ruff check .
+    - name: Static type and security checks
+      run: |
+        mypy src/
+        bandit -c pyproject.toml -r .
