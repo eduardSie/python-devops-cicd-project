@@ -48,7 +48,7 @@ jobs:
     - name: Run tests
       run: |
         pytest tests/
-  build-and-upload:
+  release:
     runs-on: ubuntu-latest
     needs: 
       [lint-and-static-test, test]
