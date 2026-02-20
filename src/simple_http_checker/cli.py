@@ -1,4 +1,5 @@
 import logging
+import sys
 import click
 from .checker import check_urls
 
@@ -47,12 +48,18 @@ def main(urls, timeout, verbose):
     url_list = [url.strip() for url in urls]
     logger.info(f"Checking {len(url_list)} URLs with a timeout of {timeout} seconds.")
 
-    results = check_urls(url_list, timeout)
+    results = check_urls(url_list, timeout=timeout)
 
     click.echo("\nResults:")
+    has_timeout = False
     for url, status in results.items():
         if "OK" in status:
             fg_color = "green"
         else:
             fg_color = "red"
+            if "Timeout" in status:
+                has_timeout = True
         click.echo(click.style(f"{url}: {status}", fg=fg_color))
+    
+    if has_timeout:
+        sys.exit(1)
