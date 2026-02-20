@@ -60,6 +60,6 @@ def main(urls, timeout, verbose):
             if "Timeout" in status:
                 has_timeout = True
         click.echo(click.style(f"{url}: {status}", fg=fg_color))
-    
+
     if has_timeout:
         sys.exit(1)
